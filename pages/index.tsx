@@ -37,6 +37,10 @@ export default function Home() {
     }
   }
 
+  const handleClear = () => {
+    setContent('')
+  }
+
   return (
     <div>
       <form onSubmit={handlePost}>
@@ -46,6 +50,7 @@ export default function Home() {
           placeholder="What's happening?"
         />
         <button type="submit">Post</button>
+        <button type="button" onClick={handleClear}>Clear</button>
       </form>
       <div>
         {posts.map((post) => (
