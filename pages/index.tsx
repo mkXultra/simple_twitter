@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import styles from '../styles/Home.module.css'
+import Sidebar from '../components/Sidebar'
 
 export default function Home() {
   const [posts, setPosts] = useState([])
@@ -44,21 +45,24 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handlePost} className={styles.form}>
-        <textarea
-          className={styles.textarea}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="What's happening?"
-        />
-        <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Post</button>
-        <button type="button" onClick={handleClear} className={`${styles.button} ${styles.clearButton}`}>Clear</button>
-      </form>
-      <ul className={styles.postList}>
-        {posts.map((post) => (
-          <li key={post.id} className={styles.postItem}>{post.content}</li>
-        ))}
-      </ul>
+      <Sidebar />
+      <div className={styles.mainContent}>
+        <form onSubmit={handlePost} className={styles.form}>
+          <textarea
+            className={styles.textarea}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="What's happening?"
+          />
+          <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Post</button>
+          <button type="button" onClick={handleClear} className={`${styles.button} ${styles.clearButton}`}>Clear</button>
+        </form>
+        <ul className={styles.postList}>
+          {posts.map((post) => (
+            <li key={post.id} className={styles.postItem}>{post.content}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
