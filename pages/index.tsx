@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar'
 export default function Home() {
   const [posts, setPosts] = useState([])
   const [content, setContent] = useState('')
+  const [showEmojis, setShowEmojis] = useState(false) // 状態を追加
 
   useEffect(() => {
     fetchPosts()
@@ -43,10 +44,28 @@ export default function Home() {
     setContent('')
   }
 
+  const toggleEmojiPicker = () => {
+    setShowEmojis(!showEmojis)
+  }
+
+  const insertEmoji = (emoji: string) => {
+    setContent(content + emoji)
+    setShowEmojis(false)
+  }
+
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
+        <button onClick={toggleEmojiPicker} className={`${styles.button} ${styles.emojiButton}`}>😊</button>
+        {showEmojis && (
+          <div className={styles.emojiPicker}>
+            <button onClick={() => insertEmoji('😀')}>😀</button>
+            <button onClick={() => insertEmoji('😂')}>😂</button>
+            <button onClick={() => insertEmoji('😍')}>😍</button>
+            <button onClick={() => insertEmoji('👍')}>👍</button>
+          </div>
+        )}
         <form onSubmit={handlePost} className={styles.form}>
           <textarea
             className={styles.textarea}
